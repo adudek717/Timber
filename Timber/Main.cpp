@@ -509,7 +509,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				}
 				else if (branchPositions[i] == side::RIGHT) {
 					// Move the sprite to the right side
-					branches[i].setPosition(1280, height);
+					branches[i].setPosition(1280, height); 
 
 					// Set the sprite rotation to normal
 					branches[i].setRotation(0);
