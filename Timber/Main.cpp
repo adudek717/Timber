@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <sstream>
+#include "fps.cpp"
 using namespace sf;
 
 // Function declaration
@@ -22,7 +23,7 @@ const int NUM_BRANCHES = 6;
 Sprite branches[NUM_BRANCHES];
 
 // Where is the player/branch?
-// Left or Right
+// Left or Right 
 enum class side { LEFT, RIGHT, NONE };
 side branchPositions[NUM_BRANCHES];
 
@@ -124,6 +125,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 	Text messageText;
 	Text scoreText;
+	Text fpsText;
 
 	// We need to choose a font
 	Font font;
@@ -132,29 +134,35 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	// Set the font to out message
 	messageText.setFont(font);
 	scoreText.setFont(font);
+	fpsText.setFont(font);
 
 	// Assign the actual message
 	messageText.setString("Press Enter to Start!");
 	scoreText.setString("Score = 0");
+	fpsText.setFont(font);
 
 	// Make it big
 	messageText.setCharacterSize(75);
 	scoreText.setCharacterSize(100);
+	fpsText.setCharacterSize(100);
 
 	// Choose color
 	messageText.setFillColor(Color::White);
 	scoreText.setFillColor(Color::White);
+	fpsText.setFillColor(Color::White);
 
 	// Position the text
 	FloatRect textRect = messageText.getLocalBounds();
 
-	messageText.setOrigin(textRect.left +
+	messageText.setOrigin(
+		textRect.left +
 		textRect.width / 2.0f,
 		textRect.top +
 		textRect.height / 2.0f);
 
 	messageText.setPosition(1440 / 2.0f, 900 / 2.0f);
 	scoreText.setPosition(20, 20);
+	fpsText.setPosition(20, 120);
 
 
 	// Prepare 6 branches
@@ -232,6 +240,8 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	ootBuffer.loadFromFile("C:\\c++\\adudek\\visual1\\Timber\\sound\\out_of_time.flac");
 	Sound outOfTime;
 	outOfTime.setBuffer(ootBuffer);
+
+	FPS fps;
 
 	while (window.isOpen()) {
 		/*
@@ -477,8 +487,14 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 			// Update the score text
 			std::stringstream ss;
-			ss << "Score = " << score;
+			ss << "Score1 = " << score;
 			scoreText.setString(ss.str());
+
+			// Update fps text
+			fps.update();
+			std::ostringstream oss;
+			oss << "FPS = " << fps.getFPS();
+			fpsText.setString(oss.str());
 
 			// update the branch sprites
 			for (int i = 0; i < NUM_BRANCHES; i++) {
@@ -602,9 +618,12 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 			window.draw(messageText);
 		};
 
+		
+
 		// Draw score
 		//if(!paused){
 		window.draw(scoreText);
+		window.draw(fpsText);
 		//};
 
 
@@ -613,6 +632,8 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 
 		window.display();	// Show everything we just drew
+
+		
 	}
 	return 0;
 }
