@@ -31,7 +31,7 @@ side branchPositions[NUM_BRANCHES];
 int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 	// Create a video mode object
-	VideoMode vm(1440, 900);
+	VideoMode vm(1920, 1080);
 
 	// Create and open a window for the game
 	RenderWindow window(vm, "Timber!!!", Style::Fullscreen);
@@ -57,7 +57,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	textureTree.loadFromFile("C:\\c++\\adudek\\visual1\\Timber\\graphics\\tree.png");
 	Sprite spriteTree;
 	spriteTree.setTexture(textureTree);
-	spriteTree.setPosition(620, 0);
+	spriteTree.setPosition(860, 0);
 
 	// Prepare the bee
 	Texture textureBee;
@@ -111,7 +111,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	float timeBarHeight = 80;
 	timeBar.setSize(Vector2f(timeBarStartWidth, timeBarHeight));
 	timeBar.setFillColor(Color::Red);
-	timeBar.setPosition((1440 / 2) - timeBarStartWidth / 2, 800);
+	timeBar.setPosition((1920 / 2) - timeBarStartWidth / 2, 950);
 
 	Time gameTimeTotal;
 	float timeRemaining = 6.0f;
@@ -160,7 +160,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 		textRect.top +
 		textRect.height / 2.0f);
 
-	messageText.setPosition(1440 / 2.0f, 900 / 2.0f);
+	messageText.setPosition(1920 / 2.0f, 1080 / 2.0f);
 	scoreText.setPosition(20, 20);
 	fpsText.setPosition(20, 120);
 
@@ -182,7 +182,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	texturePlayer.loadFromFile("C:\\c++\\adudek\\visual1\\Timber\\graphics\\player.png");
 	Sprite spritePlayer;
 	spritePlayer.setTexture(texturePlayer);
-	spritePlayer.setPosition(430, 620);
+	spritePlayer.setPosition(620, 740);
 
 	// The player starts on the left
 	side playerSide = side::LEFT;
@@ -199,7 +199,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	textureAxe.loadFromFile("C:\\c++\\adudek\\visual1\\Timber\\graphics\\axe.png");
 	Sprite spriteAxe;
 	spriteAxe.setTexture(textureAxe);
-	spriteAxe.setPosition(530, 720);
+	spriteAxe.setPosition(720, 840);
 
 	// Line the axe up with the tree
 	const float AXE_POSITION_LEFT = 530;
@@ -210,7 +210,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	textureLog.loadFromFile("C:\\c++\\adudek\\visual1\\Timber\\graphics\\log.png");
 	Sprite spriteLog;
 	spriteLog.setTexture(textureLog);
-	spriteLog.setPosition(620, 700);
+	spriteLog.setPosition(860, 880);
 
 	// Some other useful log related variables
 	bool logActive = false;
@@ -293,7 +293,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				spriteRIP.setPosition(675, 2000);
 
 				// Move the player into position
-				spritePlayer.setPosition(430, 620);
+				spritePlayer.setPosition(620, 740);
 				acceptInput = true;
 			}
 		}
@@ -310,11 +310,11 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				// Add to the amount of time remaining
 				timeRemaining += (2 / score) + .15;
 				spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
-				spritePlayer.setPosition(840, 620);
+				spritePlayer.setPosition(1100, 740);
 				// Update the branches
 				updateBranches(score);
 				// Set the log flying to the left
-				spriteLog.setPosition(620, 700);
+				spriteLog.setPosition(860, 880);
 				logSpeedX = -5000;
 				logActive = true;
 				acceptInput = false;
@@ -331,13 +331,13 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				// Add to the amount of time remaining
 				timeRemaining += (2 / score) + .15;
 				spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
-				spritePlayer.setPosition(430, 620);
+				spritePlayer.setPosition(620, 740);
 
 				// update the branches
 				updateBranches(score);
 
 				// set the log flying
-				spriteLog.setPosition(620, 700);
+				spriteLog.setPosition(860, 880);
 				logSpeedX = 5000;
 				logActive = true;
 				acceptInput = false;
@@ -501,7 +501,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				float height = i * 150;
 				if (branchPositions[i] == side::LEFT) {
 					// Move the sprite to the left side
-					branches[i].setPosition(410, height);
+					branches[i].setPosition(800, height);
 
 					// Flip the sprite round the other way
 					branches[i].setRotation(180);
@@ -509,7 +509,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				}
 				else if (branchPositions[i] == side::RIGHT) {
 					// Move the sprite to the right side
-					branches[i].setPosition(1040, height);
+					branches[i].setPosition(1280, height);
 
 					// Set the sprite rotation to normal
 					branches[i].setRotation(0);
@@ -527,11 +527,11 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 				// Has the log reached the right hand edge?
 				if (spriteLog.getPosition().x < -100 ||
-					spriteLog.getPosition().x > 1450) {
+					spriteLog.getPosition().x > 1930) {
 
 					// Set it up ready to be a whole new log next frame
 					logActive = false;
-					spriteLog.setPosition(620, 700);
+					spriteLog.setPosition(860, 880);
 				}
 			}
 
@@ -558,7 +558,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				spriteAxe.setPosition(2000, 720);
 
 				// hide the log
-				spriteLog.setPosition(2000, 720);
+				spriteLog.setPosition(2000, 880);
 
 				// Change the text of the message
 				messageText.setString("Game Over");
