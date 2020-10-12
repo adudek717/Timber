@@ -104,6 +104,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 	// Variables to control time itself
 	Clock clock;
+	Clock sclock;
 
 	// Time bar
 	RectangleShape timeBar;
@@ -491,16 +492,28 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				}
 			}
 
-			// Update the score text
-			std::stringstream ss;
-			ss << "Score = " << score;
-			scoreText.setString(ss.str());
-
-			// Update fps text
+			// Count fps
 			fps.update();
-			std::ostringstream oss;
-			oss << "FPS = " << fps.getFPS();
-			fpsText.setString(oss.str());
+
+			if (sclock.getElapsedTime().asSeconds() >= 0.1f)
+			{
+				// Update the score text
+				std::stringstream ss;
+				ss << "Score = " << score;
+				scoreText.setString(ss.str());
+
+				// Update fps text
+				std::ostringstream oss;
+				oss << "FPS = " << fps.getFPS();
+				fpsText.setString(oss.str());
+
+				// Restart the text update clock
+				sclock.restart();
+			}
+
+			
+
+			
 
 			// update the branch sprites
 			for (int i = 0; i < NUM_BRANCHES; i++) {
