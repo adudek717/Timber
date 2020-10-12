@@ -281,8 +281,10 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				paused = false;
 
 				// Reset the time and the score
-				score = 0;
+				Time dt = clock.restart();
 				timeRemaining = 6;
+				score = 0;
+				
 
 
 				// Make all the branches disappear -
@@ -383,7 +385,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 					textRect.top +
 					textRect.height / 2.0f);
 
-				messageText.setPosition(1440 / 2.0f, 900 / 2.0f);
+				messageText.setPosition(1920 / 2.0f, 1080 / 2.0f);
 
 				// Play the out of time sound
 				outOfTime.play();
@@ -571,7 +573,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				FloatRect textRect = messageText.getLocalBounds();
 				messageText.setOrigin(textRect.left + textRect.width / 2.0f,
 					textRect.top + textRect.height / 2.0f);
-				messageText.setPosition(1440 / 2.0f, 900 / 2.0f);
+				messageText.setPosition(1920 / 2.0f, 1080 / 2.0f);
 
 				// Play the death sound
 				death.play();
@@ -652,7 +654,16 @@ void updateBranches(int seed) {
 	// Spawn a new branch at position 0
 	// LEFT, RIGHT or NONE
 	srand((int)time(0) + seed);
-	int r = (rand() % 5);
+	int r = (rand() % 100);
+
+	if (r % 2 == 0) {
+		branchPositions[0] = side::LEFT;
+	}
+	else {
+		branchPositions[0] = side::RIGHT;
+	}
+
+	/* Randomizer
 	switch (r) {
 	case 0:
 		branchPositions[0] = side::LEFT; break;
@@ -661,6 +672,7 @@ void updateBranches(int seed) {
 	default:
 		branchPositions[0] = side::NONE; break;
 	}
+	*/
 }
 
 
