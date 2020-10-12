@@ -199,11 +199,13 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 	textureAxe.loadFromFile("C:\\c++\\adudek\\visual1\\Timber\\graphics\\axe.png");
 	Sprite spriteAxe;
 	spriteAxe.setTexture(textureAxe);
-	spriteAxe.setPosition(720, 840);
+	spriteAxe.setOrigin(90, 15);
+	spriteAxe.setPosition(820, 860);
+
 
 	// Line the axe up with the tree
-	const float AXE_POSITION_LEFT = 530;
-	const float AXE_POSITION_RIGHT = 930;
+	const float AXE_POSITION_LEFT = 820;
+	const float AXE_POSITION_RIGHT = 1120;
 
 	// Prepare the flying log
 	Texture textureLog;
@@ -310,7 +312,8 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				// Add to the amount of time remaining
 				timeRemaining += (2 / score) + .15;
 				spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
-				spritePlayer.setPosition(1100, 740);
+				spriteAxe.setRotation(180);
+				spritePlayer.setPosition(1150, 740);
 				// Update the branches
 				updateBranches(score);
 				// Set the log flying to the left
@@ -331,6 +334,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				// Add to the amount of time remaining
 				timeRemaining += (2 / score) + .15;
 				spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
+				spriteAxe.setRotation(0);
 				spritePlayer.setPosition(620, 740);
 
 				// update the branches
@@ -487,7 +491,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 			// Update the score text
 			std::stringstream ss;
-			ss << "Score1 = " << score;
+			ss << "Score = " << score;
 			scoreText.setString(ss.str());
 
 			// Update fps text
@@ -498,10 +502,10 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 			// update the branch sprites
 			for (int i = 0; i < NUM_BRANCHES; i++) {
-				float height = i * 150;
+				float height = i * 170;
 				if (branchPositions[i] == side::LEFT) {
 					// Move the sprite to the left side
-					branches[i].setPosition(800, height);
+					branches[i].setPosition(700, height);
 
 					// Flip the sprite round the other way
 					branches[i].setRotation(180);
@@ -543,10 +547,10 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 
 				if (playerSide == side::LEFT) {
 					// Draw the gravestone
-					spriteRIP.setPosition(420, 620);
+					spriteRIP.setPosition(620, 740);
 				}
 				else {
-					spriteRIP.setPosition(830, 620);
+					spriteRIP.setPosition(1150, 740);
 				}
 
 
@@ -555,7 +559,7 @@ int main() {	// argc - number of arguments | argv - array of pointers to strings
 				spritePlayer.setPosition(2000, 660);
 
 				// hide the axe
-				spriteAxe.setPosition(2000, 720);
+				spriteAxe.setPosition(2000, 870);
 
 				// hide the log
 				spriteLog.setPosition(2000, 880);
@@ -648,7 +652,7 @@ void updateBranches(int seed) {
 	// Spawn a new branch at position 0
 	// LEFT, RIGHT or NONE
 	srand((int)time(0) + seed);
-	int r = (rand() % 3);
+	int r = (rand() % 5);
 	switch (r) {
 	case 0:
 		branchPositions[0] = side::LEFT; break;
